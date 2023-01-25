@@ -1,0 +1,45 @@
+{% include 'base.html' %}
+
+
+<!-- Product Grid -->
+{% block products %}
+
+<div class="container my-5">
+  <div class="my-5">
+    <h1 style="margin-top:6rem;" class="h1 text-center fw-bold text-dark">Products</h1>
+    <div class="d-flex justify-content-center align-center">
+                            <!--    Mens   -->
+      <a class="h5 text-center fw-bold text-dark me-3">Mens</a>
+                      <!--    Women   -->
+      <a class="h5 text-center fw-bold text-dark me-3">Women</a>
+                      <!--    Kids   -->
+      <a class="h5 text-center fw-bold text-dark">Kids</a>
+    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+  <!--    For loop here  -->
+    <div class="col">
+      <div class="card">
+        <a href="" class="">
+          <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp" class="card-img-top" alt="Hollywood Sign on The Hill"/>
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">
+            This is a longer card with supporting text below as a natural lead-in to
+            additional content. This content is a little longer.
+          </p>
+          <button class="btn btn-danger w-100">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock products %}
+
+
+
+
+{% include 'footer.html' %}
