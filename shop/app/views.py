@@ -37,3 +37,24 @@ class BuynowView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'buynow.html')
 
+
+class SigninView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'signin.html')
+
+
+class SignupView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'signup.html')
+
+
+# User Profile
+class ManagemyaccountView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'userprofile/managemyaccount.html')
+
+
+class UserprofileView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'userprofile/userprofile.html')
+

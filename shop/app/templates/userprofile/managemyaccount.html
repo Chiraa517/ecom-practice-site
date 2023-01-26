@@ -1,0 +1,55 @@
+{% include '../base.html' %}
+
+<div class="container-fluid mt-5">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3 sidebar-sticky">
+        <ul class="nav flex-column">
+          <div class="">
+    <div class="list-group list-group-light" id="list-tab" role="tablist">
+        <small class="text-secondary mx-5 my-2">Welcome User</small>
+      <a class="list-group-item list-group-item-action active px-3 border-0" id="list-home-list"
+        data-mdb-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Manage My Acccount</a>
+                  <li class="nav-item ms-5">
+            <a class="nav-link" href="{% url 'userprofile' %}">
+              <span data-feather="file" class="align-text-bottom"></span>
+              My Profile
+            </a>
+          </li>
+                  <li class="nav-item ms-5">
+            <a class="nav-link" href="#">
+              <span data-feather="file" class="align-text-bottom mb-5"></span>
+              My Address book
+            </a>
+          </li>
+
+
+
+
+      <a class="list-group-item list-group-item-action px-3 border-0" id="list-messages-list"
+        data-mdb-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">My Orders</a>
+                  <li class="nav-item ms-5">
+            <a class="nav-link" href="#">
+              <span data-feather="file" class="align-text-bottom"></span>
+              My Returns
+            </a>
+          </li>
+                  <li class="nav-item ms-5">
+            <a class="nav-link" href="#">
+              <span data-feather="file" class="align-text-bottom"></span>
+              My Cancellations
+            </a>
+          </li>
+
+    </div>
+  </div>
+        </ul>
+
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+    </main>
+  </div>
+</div>
