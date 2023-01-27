@@ -1,0 +1,133 @@
+{% include '../base.html' %}
+
+{% block addressbook %}
+
+<div class="container-fluid mt-5">
+  <div class="row">
+    <nav
+      id="sidebarMenu"
+      class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+    >
+      <div class="position-sticky pt-3 sidebar-sticky">
+        <ul class="nav flex-column">
+          <div class="">
+            <div
+              class="list-group list-group-light"
+              id="list-tab"
+              role="tablist"
+            >
+              <small class="text-secondary mx-5 my-2">Welcome User</small>
+              <a
+                class="list-group-item list-group-item-action active px-3 border-0"
+                id="list-home-list"
+                href="{% url 'managemyaccount' %}"
+                role="tab"
+                aria-controls="list-home"
+                >Manage My Acccount</a
+              >
+              <li class="nav-item ms-5">
+                <a class="nav-link" href="{% url 'userprofile' %}">
+                  <span data-feather="file" class="align-text-bottom"></span>
+                  My Profile
+                </a>
+              </li>
+              <li class="nav-item ms-5">
+                <a class="nav-link" href="{% url 'addressbook' %}">
+                  <span
+                    data-feather="file"
+                    class="align-text-bottom mb-5"
+                  ></span>
+                  My Address book
+                </a>
+              </li>
+
+              <a
+                class="list-group-item list-group-item-action px-3 border-0"
+                id="list-messages-list"
+                href="{% url 'myorders' %}"
+                role="tab"
+                aria-controls="list-messages"
+                >My Orders</a
+              >
+              <li class="nav-item ms-5">
+                <a class="nav-link" href="{% url 'myreturns' %}">
+                  <span data-feather="file" class="align-text-bottom"></span>
+                  My Returns
+                </a>
+              </li>
+              <li class="nav-item ms-5">
+                <a class="nav-link" href="{% url 'mycancellations' %}">
+                  <span data-feather="file" class="align-text-bottom"></span>
+                  My Cancellations
+                </a>
+              </li>
+            </div>
+          </div>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-3">My Cancellations</h5>
+        </div>
+
+
+                            <div class="card mb-4 mt-5">
+                        <div class="card-header py-3">
+                            <h5 class="mb-0">Order Id</h5>
+                            <p>Requested date</p>
+                        </div>
+                        <div class="card-body">
+                            <!-- Single item -->
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                    <!-- Image -->
+                                    <div class="bg-image hover-overlay hover-zoom ripple rounded"
+                                         data-mdb-ripple-color="light">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/12a.webp"
+                                             class="w-100" alt="Blue Jeans Jacket"/>
+                                        <a href="#!">
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                        </a>
+                                    </div>
+                                    <!-- Image -->
+                                </div>
+
+                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                    <!-- Data -->
+                                    <p><strong>Blue denim shirt</strong></p>
+                                    <p>Color: blue</p>
+                                    <p>Size: M</p>
+                                    <!-- Data -->
+
+                                </div>
+                                <div class="col-lg-4 col-md-4 mb-4 mb-lg-0">
+
+                                <div class="d-flex justify-content-between">
+                                    <!-- Quantity -->
+                                            <p>Quantity: 1</p>
+                                            
+                                    <!-- Quantity -->
+
+                                    <!-- Price -->
+                                    <p class="">
+                                        <strong>Price: $17.99</strong>
+                                    </p>
+
+                                    <p class="text-danger">Returned</p>
+
+                                </div>
+                                </div>
+
+
+                            </div>
+
+    </main>
+  </div>
+</div>
+
+
+
+
+{% endblock addressbook %}

@@ -1,5 +1,5 @@
 {% include '../base.html' %}
-
+  {% block managemyaccount %} 
 <div class="container-fluid mt-5">
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
@@ -8,38 +8,50 @@
           <div class="">
     <div class="list-group list-group-light" id="list-tab" role="tablist">
         <small class="text-secondary mx-5 my-2">Welcome User</small>
-      <a class="list-group-item list-group-item-action active px-3 border-0" id="list-home-list"
-        data-mdb-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Manage My Acccount</a>
-                  <li class="nav-item ms-5">
-            <a class="nav-link" href="{% url 'userprofile' %}">
-              <span data-feather="file" class="align-text-bottom"></span>
-              My Profile
-            </a>
-          </li>
-                  <li class="nav-item ms-5">
-            <a class="nav-link" href="#">
-              <span data-feather="file" class="align-text-bottom mb-5"></span>
-              My Address book
-            </a>
-          </li>
+    <a
+                class="list-group-item list-group-item-action active px-3 border-0"
+                id="list-home-list"
+                href="{% url 'managemyaccount' %}"
+                role="tab"
+                aria-controls="list-home"
+                >Manage My Acccount</a
+              >
+              <li class="nav-item ms-5">
+                <a class="nav-link" href="{% url 'userprofile' %}">
+                  <span data-feather="file" class="align-text-bottom"></span>
+                  My Profile
+                </a>
+              </li>
+              <li class="nav-item ms-5">
+                <a class="nav-link" href="{% url 'addressbook' %}">
+                  <span
+                    data-feather="file"
+                    class="align-text-bottom mb-5"
+                  ></span>
+                  My Address book
+                </a>
+              </li>
 
-
-
-
-      <a class="list-group-item list-group-item-action px-3 border-0" id="list-messages-list"
-        data-mdb-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">My Orders</a>
-                  <li class="nav-item ms-5">
-            <a class="nav-link" href="#">
-              <span data-feather="file" class="align-text-bottom"></span>
-              My Returns
-            </a>
-          </li>
-                  <li class="nav-item ms-5">
-            <a class="nav-link" href="#">
-              <span data-feather="file" class="align-text-bottom"></span>
-              My Cancellations
-            </a>
-          </li>
+              <a
+                class="list-group-item list-group-item-action px-3 border-0"
+                id="list-messages-list"
+                href="{% url 'myorders' %}"
+                role="tab"
+                aria-controls="list-messages"
+                >My Orders</a
+              >
+              <li class="nav-item ms-5">
+                <a class="nav-link" href="{% url 'myreturns' %}">
+                  <span data-feather="file" class="align-text-bottom"></span>
+                  My Returns
+                </a>
+              </li>
+              <li class="nav-item ms-5">
+                <a class="nav-link" href="{% url 'mycancellations' %}">
+                  <span data-feather="file" class="align-text-bottom"></span>
+                  My Cancellations
+                </a>
+              </li>
 
     </div>
   </div>
@@ -48,8 +60,77 @@
       </div>
     </nav>
 
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
+      <div class="d-flex">
+              <div class="card me-3" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Personal Profile</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">User Name</h6>
+                  <p class="card-text">Email</p>
+                  <a href="#" class="card-link"
+                                      data-mdb-toggle="modal" data-mdb-target="#editprofile"
+                    data-mdb-whatever="@getbootstrap"
+                  >Edit</a>
+                  <a href="#" class="card-link">Another link</a>
+                  </div>
+            </div>
 
+                          <div class="card me-3" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Address Book</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">User Name</h6>
+                  <p class="card-text">Tag</p>
+                  <p>Lorem ipsum dolor s</p>
+                  <a href="{% url 'addressbook' %}" class="card-link">Edit</a>
+                  <a href="#" class="card-link">Another link</a>
+                  </div>
+            </div>
+
+            
+                          <div class="card me-3" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Tag Address</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">User Name</h6>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+            </div>
+
+
+      </div>
     </main>
   </div>
 </div>
+
+
+
+
+
+<!-- Change Profile -->
+
+<div class="modal fade" id="editprofile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Username:</label>
+            <input type="text" class="form-control" id="recipient-name" />
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Email:</label>
+            <input type="text" class="form-control" id="recipient-name" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock managemyaccount %}

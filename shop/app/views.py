@@ -58,3 +58,23 @@ class UserprofileView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'userprofile/userprofile.html')
 
+
+class AddressbookView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'userprofile/addressbook.html')
+
+
+class MycancellationsView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'userprofile/mycancellations.html')
+
+
+class MyreturnsView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'userprofile/myreturns.html')
+
+
+class MyordersView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'userprofile/myorders.html')
+
