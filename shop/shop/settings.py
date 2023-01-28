@@ -31,7 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'material',  # Todo added Admin Panel from github
+    'material.admin',  # Todo added Admin Panel from github
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'], # Todo: Manual Included
+        'DIRS': [BASE_DIR / 'templates'],  # Todo: Manual Included
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

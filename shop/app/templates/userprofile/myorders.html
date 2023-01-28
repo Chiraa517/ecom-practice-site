@@ -16,7 +16,9 @@
               id="list-tab"
               role="tablist"
             >
-              <small class="text-secondary mx-5 my-2">Welcome User</small>
+                {% if request.user.is_authenticated %}
+              <small class="text-secondary mx-5 my-2">Hello, Welcome {{request.user | upper}}</small>
+                {% endif %}
               <a
                 class="list-group-item list-group-item-action active px-3 border-0"
                 id="list-home-list"
@@ -86,7 +88,7 @@
       role="tab"
       aria-controls="ex1-tabs-1"
       aria-selected="true"
-      >Delievered</a
+      >All</a
     >
   </li>
   <li class="nav-item" role="presentation">
@@ -98,7 +100,7 @@
       role="tab"
       aria-controls="ex1-tabs-2"
       aria-selected="false"
-      >Cancelled</a
+      >To Receive</a
     >
   </li>
   <li class="nav-item" role="presentation">
@@ -110,6 +112,32 @@
       role="tab"
       aria-controls="ex1-tabs-3"
       aria-selected="false"
+      >Delivered</a
+    >
+  </li>
+
+  <li class="nav-item" role="presentation">
+    <a
+      class="nav-link"
+      id="ex1-tab-4"
+      data-mdb-toggle="tab"
+      href="#ex1-tabs-4"
+      role="tab"
+      aria-controls="ex1-tabs-4"
+      aria-selected="false"
+      >Cancelled</a
+    >
+  </li>
+
+      <li class="nav-item" role="presentation">
+    <a
+      class="nav-link"
+      id="ex1-tab-5"
+      data-mdb-toggle="tab"
+      href="#ex1-tabs-5"
+      role="tab"
+      aria-controls="ex1-tabs-5"
+      aria-selected="false"
       >Returned</a
     >
   </li>
@@ -117,6 +145,74 @@
 <!-- Tabs navs -->
 
 <!-- Tabs content -->
+
+<!--  Cancelled id=4 -->
+<div class="tab-content" id="ex4-content">
+  <div
+    class="tab-pane fade show active"
+    id="ex1-tabs-4"
+    role="tabpanel"
+    aria-labelledby="ex1-tab-4"
+  >
+                            <div class="card mb-4 mt-5">
+                        <div class="card-header py-3">
+                            <h5 class="mb-0">Order Id <small class="text-primary"> #948766821</small></h5>
+                            <p>Requested date</p>
+                        </div>
+                        <div class="card-body">
+                            <!-- Single item -->
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                    <!-- Image -->
+                                    <div class="bg-image hover-overlay hover-zoom ripple rounded"
+                                         data-mdb-ripple-color="light">
+                                        <img src="https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGNsb3RoZXN8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                                             class="w-100" alt="Blue Jeans Jacket"/>
+                                        <a href="#!">
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                        </a>
+                                    </div>
+                                    <!-- Image -->
+                                </div>
+
+                                <div class="col-lg2 col-md-2 mb-2 mb-lg-0">
+                                    <!-- Data -->
+                                    <p><strong>Blue denim shirt</strong></p>
+                                    <p>Color: blue</p>
+                                    <p>Size: M</p>
+                                    <!-- Data -->
+
+                                </div>
+                                <div class="col-lg-6 col-md-4 mb-4 mb-lg-0">
+
+                                <div class="d-flex justify-content-between">
+                                    <!-- Quantity -->
+                                            <p>Quantity: 1</p>
+
+                                    <!-- Quantity -->
+
+                                    <!-- Price -->
+                                    <p class="">
+                                        <strong>Price: $55.99</strong>
+                                    </p>
+
+                                    <p class="text-danger">Cancelled</p>
+
+                                    <p class="">Cancelled: date</p>
+
+                                </div>
+                                </div>
+
+
+                            </div>
+                            </div>
+                            </div>
+  </div>
+
+
+
+
+<!--    All id=1    -->
 <div class="tab-content" id="ex1-content">
   <div
     class="tab-pane fade show active"
@@ -166,9 +262,65 @@
                                         <strong>Price: $55.99</strong>
                                     </p>
 
-                                    <p class="text-success">Delievered</p>
+                                    <p class="text-success">Delivered</p>
 
-                                    <p class="">Delievered: date</p>
+                                    <p class="">Delivered: date</p>
+
+                                </div>
+                                </div>
+
+
+                            </div>
+                            </div>
+                            </div>
+
+<!--      2nd item  -->
+
+        <div class="card mb-4 mt-5">
+                        <div class="card-header py-3">
+                            <h5 class="mb-0">Order Id <small class="text-primary"> #948766821</small></h5>
+                            <p>Requested date</p>
+                        </div>
+                        <div class="card-body">
+                            <!-- Single item -->
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                    <!-- Image -->
+                                    <div class="bg-image hover-overlay hover-zoom ripple rounded"
+                                         data-mdb-ripple-color="light">
+                                        <img src="https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGNsb3RoZXN8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                                             class="w-100" alt="Blue Jeans Jacket"/>
+                                        <a href="#!">
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                        </a>
+                                    </div>
+                                    <!-- Image -->
+                                </div>
+
+                                <div class="col-lg2 col-md-2 mb-2 mb-lg-0">
+                                    <!-- Data -->
+                                    <p><strong>Blue denim shirt</strong></p>
+                                    <p>Color: blue</p>
+                                    <p>Size: M</p>
+                                    <!-- Data -->
+
+                                </div>
+                                <div class="col-lg-6 col-md-4 mb-4 mb-lg-0">
+
+                                <div class="d-flex justify-content-between">
+                                    <!-- Quantity -->
+                                            <p>Quantity: 1</p>
+
+                                    <!-- Quantity -->
+
+                                    <!-- Price -->
+                                    <p class="">
+                                        <strong>Price: $55.99</strong>
+                                    </p>
+
+                                    <p class="text-danger">Returned</p>
+
+                                    <p class="">Returned: date</p>
 
                                 </div>
                                 </div>
@@ -181,6 +333,12 @@
 
 
 
+
+
+
+
+
+<!-- To Receive id=2  -->
   <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
                                 <div class="card mb-4 mt-5">
                         <div class="card-header py-3">
@@ -224,9 +382,9 @@
                                         <strong>Price: $122.99</strong>
                                     </p>
 
-                                    <p class="text-danger">Cancelled</p>
+                                    <p class="text-primary">To Receive</p>
 
-                                    <p class="">Cancelled: date</p>
+                                    <p class="">To Receive: date</p>
 
                                 </div>
                                 </div>
@@ -237,6 +395,8 @@
                             </div>
   </div>
 
+
+<!--    Delivered  id=3 -->
   <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
                                 <div class="card mb-4 mt-5">
                         <div class="card-header py-3">
@@ -280,6 +440,65 @@
                                         <strong>Price: $17.99</strong>
                                     </p>
 
+                                    <p class="text-success">Delivered</p>
+
+                                    <p class="">Delivered: date</p>
+
+                                </div>
+                                </div>
+
+
+                            </div>
+                            </div>
+                            </div>
+  </div>
+
+
+
+<!-- Returned id=5  -->
+  <div class="tab-pane fade" id="ex1-tabs-5" role="tabpanel" aria-labelledby="ex1-tab-5">
+                                <div class="card mb-4 mt-5">
+                        <div class="card-header py-3">
+                              <h5 class="mb-0">Order Id <small class="text-primary"> #23148766821</small></h5>
+                            <p>Requested date</p>
+                        </div>
+                        <div class="card-body">
+                            <!-- Single item -->
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                    <!-- Image -->
+                                    <div class="bg-image hover-overlay hover-zoom ripple rounded"
+                                         data-mdb-ripple-color="light">
+                                        <img src="https://images.unsplash.com/photo-1543076447-215ad9ba6923?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzN8fGNsb3RoZXN8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                                             class="w-100" alt="Blue Jeans Jacket"/>
+                                        <a href="#!">
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                        </a>
+                                    </div>
+                                    <!-- Image -->
+                                </div>
+
+                                <div class="col-lg2 col-md-2 mb-2 mb-lg-0">
+                                    <!-- Data -->
+                                    <p><strong>Blue denim shirt</strong></p>
+                                    <p>Color: blue</p>
+                                    <p>Size: M</p>
+                                    <!-- Data -->
+
+                                </div>
+                                <div class="col-lg-6 col-md-4 mb-4 mb-lg-0">
+
+                                <div class="d-flex justify-content-between">
+                                    <!-- Quantity -->
+                                            <p>Quantity: 1</p>
+
+                                    <!-- Quantity -->
+
+                                    <!-- Price -->
+                                    <p class="">
+                                        <strong>Price: $122.99</strong>
+                                    </p>
+
                                     <p class="text-danger">Returned</p>
 
                                     <p class="">Returned: date</p>
@@ -292,6 +511,7 @@
                             </div>
                             </div>
   </div>
+</div>
 </div>
 <!-- Tabs content -->
 

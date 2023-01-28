@@ -9,7 +9,9 @@
           <div class="">
 
             <div class="list-group list-group-light" id="list-tab" role="tablist">
-              <small class="text-secondary mx-5 my-2">Welcome User</small>
+              {% if request.user.is_authenticated %}
+              <small class="text-secondary mx-5 my-2">Hello, Welcome {{request.user | upper}}</small>
+              {% endif %}
               <a class="list-group-item list-group-item-action active px-3 border-0" id="list-home-list"
                 href="{% url 'managemyaccount' %}" role="tab" aria-controls="list-home">Manage My Acccount</a>
               <li class="nav-item ms-5">
@@ -52,13 +54,22 @@
         <h5 class="card-header">My Profile</h5>
         <div class="card-body">
           <ul class="list-group">
-            <li class="list-group-item px-3">User Name | <a href="" 
+            <li class="list-group-item px-3">User Name
+              {%if request.user.is_authenticated %}
+              : {{request.user | upper}}
+              {% else %}
+              | <a href=""
               data-mdb-toggle="modal" data-mdb-target="#eidtprofile"
             data-mdb-whatever="@getbootstrap">
-              Add </a> : </li>
-            <li class="list-group-item px-3">User Email | <a href=""
+              Add </a> : {% endif %} </li>
+            <li class="list-group-item px-3">User Email
+              {%if request.user.is_authenticated %}
+              : {{request.user.email}}
+              {% else %}
+              | <a href=""
               data-mdb-toggle="modal" data-mdb-target="#eidtprofile"
-            data-mdb-whatever="@getbootstrap">Add </a> : </li>
+            data-mdb-whatever="@getbootstrap">Add </a> : {% endif %} </li>
+
             <li class="list-group-item px-3">User Number | <a href=""
               data-mdb-toggle="modal" data-mdb-target="#eidtprofile"
             data-mdb-whatever="@getbootstrap">Add </a> : </li>
@@ -96,18 +107,22 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+        <h5 class="modal-title" id="changePass">Change Password</h5>
         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Current Password:</label>
-            <input type="text" class="form-control" id="recipient-name" />
+            <label for="currentPass" class="col-form-label">Current Password:</label>
+            <input type="text" class="form-control" id="currentPass" />
           </div>
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">New Password:</label>
-            <input type="text" class="form-control" id="recipient-name" />
+            <label for="newpass" class="col-form-label">New Password:</label>
+            <input type="text" class="form-control" id="newpass" />
+          </div>
+          <div class="mb-3">
+            <label for="repeatNewpass" class="col-form-label">Repeat New Password:</label>
+            <input type="text" class="form-control" id="repeatNewpass" />
           </div>
         </form>
       </div>
@@ -134,20 +149,20 @@
         <div class="modal-body">
           <form>
             <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">UserName:</label>
-              <input type="text" class="form-control" id="recipient-name" />
+              <label for="username" class="col-form-label">UserName:</label>
+              <input type="text" class="form-control" id="username" />
             </div>
             <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">Email:</label>
-              <input type="text" class="form-control" id="recipient-name" />
+              <label for="email" class="col-form-label">Email:</label>
+              <input type="text" class="form-control" id="email" />
             </div>
             <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">Number:</label>
-              <input type="text" class="form-control" id="recipient-name" />
+              <label for="number" class="col-form-label">Number:</label>
+              <input type="text" class="form-control" id="number" />
             </div>
             <div class="mb-3">
-              <label for="message-text" class="col-form-label">Birthday:</label>
-              <textarea class="form-control" id="message-text"></textarea>
+              <label for="birthday" class="col-form-label">Birthday:</label>
+              <textarea class="form-control" id="birthday"></textarea>
             </div>
 
             <div classs="">

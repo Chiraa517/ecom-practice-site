@@ -3,6 +3,16 @@
 
 <div class="container my-5">
 
+<!--    # validation errors-->
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      <strong>{{message}}!</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+
+
+
     <section class="vh-100 gradient-custom">
   <div class="container py-5 h-100">
     <div class="row justify-content-center align-items-center h-100">
@@ -10,14 +20,14 @@
         <div class="shadow-2-strong card-registration">
           <div class="card-body p-4 p-md-5">
             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-            <form>
-
+            <form action="" method="POST" >
+                {% csrf_token %}
               <div class="row">
                 <div class="col-md-6 mb-4">
 
                   <div class="form">
                     <label class="form-label" for="firstName">First Name</label>
-                    <input type="text" id="firstName" class="form-control form-control-lg" />
+                    <input type="text" id="firstName" name="firstName" class="form-control form-control-lg" />
                   </div>
 
                 </div>
@@ -25,74 +35,56 @@
 
                   <div class="form">
                     <label class="form-label" for="lastName">Last Name</label>
-                    <input type="text" id="lastName" class="form-control form-control-lg" />
+                    <input type="text" id="lastName" name="lastName" class="form-control form-control-lg" />
                   </div>
 
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col-md-6 mb-4 d-flex align-items-center">
 
-                  <div class="form datepicker w-100">
-                    <label for="birthdayDate" class="form-label">Birthday</label>
-                    <input type="text" class="form-control form-control-lg" id="birthdayDate" />
+                            <div class="row">
+                <div class="col-md-6 mb-4">
+
+              <div class="form">
+
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-control form-control-lg" />
                   </div>
 
                 </div>
                 <div class="col-md-6 mb-4">
 
-                  <h6 class="mb-2 pb-1">Gender: </h6>
-
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
-                      value="option1" checked />
-                    <label class="form-check-label" for="femaleGender">Female</label>
-                  </div>
-
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
-                      value="option2" />
-                    <label class="form-check-label" for="maleGender">Male</label>
-                  </div>
-
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender"
-                      value="option3" />
-                    <label class="form-check-label" for="otherGender">Other</label>
+                                    <div class="form">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="text" id="email" name="email" class="form-control form-control-lg" />
                   </div>
 
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col-md-6 mb-4 pb-2">
 
-                  <div class="form">
-                    <label class="form-label" for="emailAddress">Email</label>
-                    <input type="email" id="emailAddress" class="form-control form-control-lg" />
+      <div class="row">
+                <div class="col-md-6 mb-4">
+
+              <div class="form">
+
+                    <label class="form-label" for="password">Password</label>
+                    <input type="text" id="password" name="password" class="form-control form-control-lg" />
                   </div>
 
                 </div>
-                <div class="col-md-6 mb-4 pb-2">
+                <div class="col-md-6 mb-4">
 
-                  <div class="form">
-                    <label class="form-label" for="phoneNumber">Phone Number</label>
-                    <input type="tel" id="phoneNumber" class="form-control form-control-lg" />
+                    <div class="form">
+                    <label class="form-label" for="conpassword">Confirm Password</label>
+                    <input type="text" id="conpassword" name="conpassword" class="form-control form-control-lg" />
                   </div>
 
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="form">
-                  <label class="form-label" for="textAreaExample">Address</label>
-                  <textarea class="form-control" id="textAreaExample" rows="2"></textarea>
                 </div>
               </div>
 
               <div class="mt-4 pt-2">
-                <input class="btn btn-primary btn-lg w-100" type="submit" value="Submit" />
+                <button type="submit" class="btn btn-primary btn-lg w-100" >Sign up</button>
               </div>
 
             </form>

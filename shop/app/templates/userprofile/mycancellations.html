@@ -16,7 +16,9 @@
               id="list-tab"
               role="tablist"
             >
-              <small class="text-secondary mx-5 my-2">Welcome User</small>
+                {% if request.user.is_authenticated %}
+              <small class="text-secondary mx-5 my-2">Hello, Welcome {{request.user | upper}}</small>
+                {% endif %}
               <a
                 class="list-group-item list-group-item-action active px-3 border-0"
                 id="list-home-list"

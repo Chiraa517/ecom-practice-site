@@ -7,7 +7,10 @@
         <ul class="nav flex-column">
           <div class="">
     <div class="list-group list-group-light" id="list-tab" role="tablist">
-        <small class="text-secondary mx-5 my-2">Welcome User</small>
+        {% if request.user.is_authenticated %}
+        <small class="text-secondary mx-2 my-2">Hello, Welcome
+            <small class="text-success">{{request.user | upper}}</small></small>
+        {% endif %}
     <a
                 class="list-group-item list-group-item-action active px-3 border-0"
                 id="list-home-list"
@@ -65,8 +68,10 @@
               <div class="card me-3" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title">Personal Profile</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">User Name</h6>
-                  <p class="card-text">Email</p>
+                    {% if request.user.is_authenticated %}
+                  <h6 class="card-subtitle mb-2 text-muted">{{request.user | upper}}</h6>
+                  <p class="card-text">{{request.user.email}}</p>
+                    {% endif %}
                   <a href="#" class="card-link"
                                       data-mdb-toggle="modal" data-mdb-target="#editprofile"
                     data-mdb-whatever="@getbootstrap"
@@ -78,7 +83,9 @@
                           <div class="card me-3" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title">Address Book</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">User Name</h6>
+                    {% if request.user.is_authenticated %}
+                  <h6 class="card-subtitle mb-2 text-muted">{{request.user | upper}}</h6>
+                    {% endif %}
                   <p class="card-text">Tag</p>
                   <p>Lorem ipsum dolor s</p>
                   <a href="{% url 'addressbook' %}" class="card-link">Edit</a>
@@ -90,7 +97,9 @@
                           <div class="card me-3" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title">Tag Address</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">User Name</h6>
+                    {% if request.user.is_authenticated %}
+                  <h6 class="card-subtitle mb-2 text-muted">Hello, Welcome {{request.user | upper}}</h6>
+                    {% endif %}
                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                   </div>
             </div>
