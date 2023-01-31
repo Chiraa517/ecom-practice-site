@@ -3,6 +3,16 @@
 {% block signin %}
 
 <div class="container mb-5">
+
+  <!--    # validation errors-->
+    {% for message in messages %}
+    <div style="margin-top:5rem" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      <strong>{{message}}!</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+
+
     <h1 style="margin-top:8rem;" class="text-dark">Sign in</h1>
     <form action="" method="POST">
       {% csrf_token %}
