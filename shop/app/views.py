@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, logout, login
 from django.contrib import messages
 import re
 
+
 # Create your views here.
 
 
@@ -96,11 +97,14 @@ class SignInView(View):
         if user is not None:
             login(request, user)
             return redirect('/')
+        messages.warning(request, "Username or Password is incorrect")
         return render(request, 'signin.html')
 
 
 class SignUpView(View):
     def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('/')
         return render(request, 'signup.html')
 
     def post(self, request, *args, **kwargs):
@@ -111,28 +115,45 @@ class SignUpView(View):
         password = request.POST.get('password')
         con_password = request.POST.get('conpassword')
         # Todo Regex validation
-        email_regex = r'/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/'
+        email_regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
         pass_regex = r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$'
 
         if username == '':
             messages.warning(request, "Username is required")
+            return redirect('signup')
+
         elif last_name == '':
             messages.warning(request, "Last name is required")
+            return redirect('signup')
+
         elif first_name == '':
             messages.warning(request, "Firs name is required")
-        elif re.fullmatch(email_regex, email):
+            return redirect('signup')
+
+        if not (re.fullmatch(email_regex, email)):
             messages.warning(request, "Please enter a valid email")
+            return redirect('signup')
+
         elif email == '':
             messages.warning(request, "Email is required")
-        elif re.fullmatch(pass_regex, password):
+            return redirect('signup')
+
+        if not re.search(pass_regex, password):
             messages.warning(request, "Minimum eight characters, at least one letter, one number and one special "
                                       "character!")
+            return redirect('signup')
+
         elif password == '':
             messages.warning(request, "Password is required")
+            return redirect('signup')
+
         elif con_password == '':
             messages.warning(request, "Confirm Password is required")
+            return redirect('signup')
+
         elif password != con_password:
             messages.warning(request, "Password must be same")
+            return redirect('signup')
 
         create_users = User.objects.create_user(username, email, password)
         create_users.first_name = first_name
