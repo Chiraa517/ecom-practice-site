@@ -2,26 +2,62 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout, login
+# import messages to show the error, success messages vice versa
 from django.contrib import messages
+# import regex for validation of email and password
 import re
+# importing models
+from .models import Product, Category, Customer, Order, OrderStatus, City, Contry, Area, Cart
 
 
-# Create your views here.
-
-
+# Starting views.
 class HomeView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'index.html')
+        laptop = Product.objects.filter(category__title='Laptops')[:3]
+        mobile = Product.objects.filter(category__title='Mobiles')[:3]
+        girl_product = Product.objects.filter(category__title='Girls Fashion Product')[:3]
+        category = Category.objects.all()
+        print(girl_product)
+        context = {
+            'laptop': laptop,
+            'mobile': mobile,
+            'category': category,
+            'girl_product': girl_product,
+        }
+        return render(request, 'index.html', context)
+
+
+class AllProductsView(View):
+    def get(self, request, *args, **kwargs):
+        category = Category.objects.all()
+        context = {
+            'category': category,
+        }
+        return render(request, 'allproducts.html', context)
 
 
 class ProductsView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'products.html')
+    def get(self, request, slug, *args, **kwargs):
+        product = Product.objects.get(slug=slug)
+        category = Category.objects.all()
+        context = {
+            'product': product,
+            'category': category,
+        }
+        return render(request, 'products.html', context)
 
 
 class CategoryView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'category.html')
+    def get(self, request, slug, *args, **kwargs):
+        product = Product.objects.filter(category__slug=slug)
+        category = Category.objects.all()
+        title = Category.objects.get(slug=slug)
+        context = {
+            'product': product,
+            'category': category,
+            'title': title,
+        }
+        return render(request, 'category.html', context)
 
 
 class CartView(View):
@@ -40,8 +76,14 @@ class AboutView(View):
 
 
 class BuynowView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'buynow.html')
+    def get(self, request, slug, *args, **kwargs):
+        product = Product.objects.get(slug=slug)
+        category = Category.objects.all()
+        context = {
+            'product': product,
+            'category': category
+        }
+        return render(request, 'buynow.html', context)
 
 
 class SigninView(View):

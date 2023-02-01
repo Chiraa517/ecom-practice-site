@@ -57,14 +57,16 @@
                                 aria-labelledby="categoryId"
                         >
                             <li>
-                                <a class="dropdown-item" href="{% url 'category' %}">My profile</a>
+                                {% for c in category %}
+                                <a class="dropdown-item" href="{% url 'category' c.slug %}">{{c.title}}</a>
+                                {% endfor %}
                             </li>
                         </ul>
                     </div>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'products' %}">Product</a>
+                    <a class="nav-link" href="{% url 'allproducts' %}">Product</a>
                 </li>
                 </li>
             </ul>
