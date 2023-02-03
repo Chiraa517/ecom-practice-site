@@ -32,7 +32,11 @@
                 <p>Price<del class="text-muted">{{product.selling_price}}</del></p>
             </div>
             <div>
-                <button class="btn btn-primary w-50">Add To Cart</button>
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'addtocart' product.slug %}" class="btn btn-primary w-50">Add To Cart</a>
+                {% else %}
+                <a href="{% url 'signin' %}" class="btn btn-primary w-50">Add To Cart</a>
+                {% endif %}
                 <div class="mt-3">
                     {% if request.user.is_authenticated %}
                     <a href="{% url 'buynow' product.slug %}" class="btn btn-danger w-50">Buy</a>

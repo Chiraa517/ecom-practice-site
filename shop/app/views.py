@@ -13,25 +13,55 @@ from .models import Product, Category, Customer, Order, OrderStatus, City, Contr
 # Starting views.
 class HomeView(View):
     def get(self, request, *args, **kwargs):
+        # getting category titles
+        laptop_title = Category.objects.filter(title__startswith='L')[0]
+        mobile_title = Category.objects.filter(title__startswith='M')[0]
+        girls_title = Category.objects.filter(title__startswith='G')[0]
+        # diplay products according to category... only 3 on home page
         laptop = Product.objects.filter(category__title='Laptops')[:3]
         mobile = Product.objects.filter(category__title='Mobiles')[:3]
         girl_product = Product.objects.filter(category__title='Girls Fashion Product')[:3]
+
         category = Category.objects.all()
-        print(girl_product)
         context = {
             'laptop': laptop,
             'mobile': mobile,
             'category': category,
             'girl_product': girl_product,
+            'laptop_title': laptop_title,
+            'mobile_title': mobile_title,
+            'girls_title': girls_title,
         }
         return render(request, 'index.html', context)
 
 
-class AllProductsView(View):
+class AboutView(View):
     def get(self, request, *args, **kwargs):
         category = Category.objects.all()
+        context = {'category': category}
+        return render(request, 'about.html', context)
+
+
+class AllProductsView(View):
+    def get(self, request, *args, **kwargs):
+        # getting category titles
+        laptop_title = Category.objects.filter(title__startswith='L')[0]
+        mobile_title = Category.objects.filter(title__startswith='M')[0]
+        girls_title = Category.objects.filter(title__startswith='G')[0]
+        # displaying all the products according to the category
+        laptop = Product.objects.filter(category__title='Laptops')
+        mobile = Product.objects.filter(category__title='Mobiles')
+        girl_product = Product.objects.filter(category__title='Girls Fashion Product')
+
+        category = Category.objects.all()
         context = {
+            'laptop': laptop,
+            'mobile': mobile,
             'category': category,
+            'girl_product': girl_product,
+            'laptop_title': laptop_title,
+            'mobile_title': mobile_title,
+            'girls_title': girls_title,
         }
         return render(request, 'allproducts.html', context)
 
@@ -61,18 +91,22 @@ class CategoryView(View):
 
 
 class CartView(View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request,  *args, **kwargs):
         return render(request, 'cart.html')
+
+
+class AddToCartView(View):
+    def get(self, request, slug,  *args, **kwargs):
+        product = Product.objects.filter(slug=slug)
+        context = {
+            'product': product,
+        }
+        return render(request, 'add_to_cart.html', context)
 
 
 class CheckoutView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'checkout.html')
-
-
-class AboutView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'about.html')
 
 
 class BuynowView(View):

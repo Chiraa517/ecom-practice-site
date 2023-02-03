@@ -11,7 +11,9 @@ urlpatterns = [
     path('allproducts/', views.AllProductsView.as_view(), name='allproducts'),
     # passing category slug to get the product of the same type
     path('category/<str:slug>', views.CategoryView.as_view(), name='category'),
+    # passing product slug to get the product of the same type in cart
     path('cart/', views.CartView.as_view(), name='cart'),
+    path('addtocart/<str:slug>', views.AddToCartView.as_view(), name='addtocart'),
     path('checkout/', views.CheckoutView.as_view(), name='checkout'),
     path('about/', views.AboutView.as_view(), name='about'),
     path('buynow/<str:slug>', views.BuynowView.as_view(), name='buynow'),

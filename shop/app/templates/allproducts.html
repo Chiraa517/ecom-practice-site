@@ -18,7 +18,7 @@
       role="tab"
       aria-controls="ex3-tabs-1"
       aria-selected="true"
-      >Men</a
+      >{{laptop_title}}</a
     >
   </li>
   <li class="nav-item" role="presentation">
@@ -30,7 +30,7 @@
       role="tab"
       aria-controls="ex3-tabs-2"
       aria-selected="false"
-      >Women</a
+      >{{mobile_title}}</a
     >
   </li>
   <li class="nav-item" role="presentation">
@@ -42,7 +42,7 @@
       role="tab"
       aria-controls="ex3-tabs-3"
       aria-selected="false"
-      >Kids</a
+      >{{girls_title}}</a
     >
   </li>
 </ul>
@@ -58,21 +58,43 @@
   >
       <div class="row row-cols-1 row-cols-md-3 g-4">
   <!--    For loop here  -->
-    <div class="col">
+        {% for l in laptop %}
+        <div class="col">
       <div class="card">
-        <a href="" class="">
-          <img src="https://images.unsplash.com/photo-1594750823491-e493d067ce3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzl8fGNsb3RoZXN8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Hollywood Sign on The Hill"/>
+        <a href="{% url 'products' l.slug %}" class="">
+          <img src="/media/{{l.image}}" class="card-img-top" alt="Laptops"/>
         </a>
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            This is a longer card with supporting text below as a natural lead-in to
-            additional content. This content is a little longer.
-          </p>
-          <button class="btn btn-danger w-100">Buy Now</button>
+          <h5 class="card-title">{{l.title}}</h5>
+          <small class="card-title text-primary">{{l.brand}}</small>
+          <br>
+          <small class="card-title">Cat: {{l.category.title}}</small>
+          <!--
+          Todo: Avoid Safe filter
+          safe filter is messing the html template format so that's why I am using striptags
+          If you want cleaner filter so use python bleach library
+
+          But I found another way using django autoescape filter Off
+           -->
+          {% autoescape off %}
+          <p class="card-text">{{l.description | truncatewords:10 | striptags}}</p>
+          {% endautoescape %}
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="card-text text-muted"><del>{{l.selling_price}}</del></p>
+            <p class="card-text text-warning">{{l.discounted_price}}</p>
+          </div>
+
+                          <div class="mt-3">
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'buynow' l.slug %}" class="btn btn-danger w-50">Buy</a>
+                    {% else %}
+                    <a href="{% url 'signin' %}" class="btn btn-danger w-50">Buy</a>
+                    {% endif %}
+                </div>
         </div>
       </div>
     </div>
+        {% endfor %}
   </div>
 
 
@@ -86,21 +108,36 @@
   >
       <div class="row row-cols-1 row-cols-md-3 g-4">
   <!--    For loop here  -->
+{% for m in mobile %}
     <div class="col">
       <div class="card">
-        <a href="" class="">
-          <img src="https://images.unsplash.com/photo-1620799139507-2a76f79a2f4d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDB8fGNsb3RoZXN8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Hollywood Sign on The Hill"/>
+        <a href="{% url 'products' m.slug %}" class="">
+          <img src="/media/{{m.image}}" class="card-img-top" alt="Laptops"/>
         </a>
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            This is a longer card with supporting text below as a natural lead-in to
-            additional content. This content is a little longer.
-          </p>
-          <button class="btn btn-danger w-100">Buy Now</button>
+          <h5 class="card-title">{{m.title}}</h5>
+          <small class="card-title text-primary">{{m.brand}}</small>
+                    <br>
+          <small class="card-title">Cat: {{m.category.title}}</small>
+          {% autoescape off %}
+          <p class="card-text">{{m.description | truncatewords:10 | striptags}}</p>
+          {% endautoescape %}
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="card-text text-muted"><del>{{m.selling_price}}</del></p>
+            <p class="card-text text-warning">{{m.discounted_price}}</p>
+          </div>
+
+                          <div class="mt-3">
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'buynow' m.slug %}" class="btn btn-danger w-50">Buy</a>
+                    {% else %}
+                    <a href="{% url 'signin' %}" class="btn btn-danger w-50">Buy</a>
+                    {% endif %}
+                </div>
         </div>
       </div>
     </div>
+    {% endfor %}
   </div>
 
 
@@ -114,21 +151,36 @@
   >
       <div class="row row-cols-1 row-cols-md-3 g-4">
   <!--    For loop here  -->
+     {% for gp in girl_product %}
     <div class="col">
       <div class="card">
-        <a href="" class="">
-          <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp" class="card-img-top" alt="Hollywood Sign on The Hill"/>
+        <a href="{% url 'products' gp.slug %}" class="">
+          <img src="/media/{{gp.image}}" class="card-img-top" alt="Girls Fashion Product"/>
         </a>
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            This is a longer card with supporting text below as a natural lead-in to
-            additional content. This content is a little longer.
-          </p>
-          <button class="btn btn-danger w-100">Buy Now</button>
+          <h5 class="card-title">{{gp.title}}</h5>
+          <small class="card-title text-primary">{{gp.brand}}</small>
+                    <br>
+          <small class="card-title">Cat: {{gp.category.title}}</small>
+          {% autoescape off %}
+          <p class="card-text">{{gp.description | truncatewords:10 | striptags}}</p>
+          {% endautoescape %}
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="card-text text-muted"><del>{{gp.selling_price}}</del></p>
+            <p class="card-text text-warning">{{gp.discounted_price}}</p>
+          </div>
+
+                          <div class="mt-3">
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'buynow' gp.slug %}" class="btn btn-danger w-50">Buy</a>
+                    {% else %}
+                    <a href="{% url 'signin' %}" class="btn btn-danger w-50">Buy</a>
+                    {% endif %}
+                </div>
         </div>
       </div>
     </div>
+    {% endfor %}
   </div>
 
 

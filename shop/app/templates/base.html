@@ -188,6 +188,12 @@ body {
     src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"
     ></script>
     
+    <!-- Checking user is authenticated or not -->
+    <script type="text/javascript">
+       var user = '{{request.user}}';
+    </script>
+    {% load static  %}
+    <script src="{% static 'js/cart.js' %}"></script>
 
 
 
