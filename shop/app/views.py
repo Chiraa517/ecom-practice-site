@@ -2,30 +2,106 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout, login
+# import messages to show the error, success messages vice versa
 from django.contrib import messages
+# import regex for validation of email and password
 import re
+# importing models
+from .models import Product, Category, Customer, Order, OrderStatus, City, Contry, Area, Cart
 
-# Create your views here.
 
-
+# Starting views.
 class HomeView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'index.html')
+        # getting category titles
+        laptop_title = Category.objects.filter(title__startswith='L')[0]
+        mobile_title = Category.objects.filter(title__startswith='M')[0]
+        girls_title = Category.objects.filter(title__startswith='G')[0]
+        # diplay products according to category... only 3 on home page
+        laptop = Product.objects.filter(category__title='Laptops')[:3]
+        mobile = Product.objects.filter(category__title='Mobiles')[:3]
+        girl_product = Product.objects.filter(category__title='Girls Fashion Product')[:3]
+
+        category = Category.objects.all()
+        context = {
+            'laptop': laptop,
+            'mobile': mobile,
+            'category': category,
+            'girl_product': girl_product,
+            'laptop_title': laptop_title,
+            'mobile_title': mobile_title,
+            'girls_title': girls_title,
+        }
+        return render(request, 'index.html', context)
+
+
+class AboutView(View):
+    def get(self, request, *args, **kwargs):
+        category = Category.objects.all()
+        context = {'category': category}
+        return render(request, 'about.html', context)
+
+
+class AllProductsView(View):
+    def get(self, request, *args, **kwargs):
+        # getting category titles
+        laptop_title = Category.objects.filter(title__startswith='L')[0]
+        mobile_title = Category.objects.filter(title__startswith='M')[0]
+        girls_title = Category.objects.filter(title__startswith='G')[0]
+        # displaying all the products according to the category
+        laptop = Product.objects.filter(category__title='Laptops')
+        mobile = Product.objects.filter(category__title='Mobiles')
+        girl_product = Product.objects.filter(category__title='Girls Fashion Product')
+
+        category = Category.objects.all()
+        context = {
+            'laptop': laptop,
+            'mobile': mobile,
+            'category': category,
+            'girl_product': girl_product,
+            'laptop_title': laptop_title,
+            'mobile_title': mobile_title,
+            'girls_title': girls_title,
+        }
+        return render(request, 'allproducts.html', context)
 
 
 class ProductsView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'products.html')
+    def get(self, request, slug, *args, **kwargs):
+        product = Product.objects.get(slug=slug)
+        category = Category.objects.all()
+        context = {
+            'product': product,
+            'category': category,
+        }
+        return render(request, 'products.html', context)
 
 
 class CategoryView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'category.html')
+    def get(self, request, slug, *args, **kwargs):
+        product = Product.objects.filter(category__slug=slug)
+        category = Category.objects.all()
+        title = Category.objects.get(slug=slug)
+        context = {
+            'product': product,
+            'category': category,
+            'title': title,
+        }
+        return render(request, 'category.html', context)
 
 
 class CartView(View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request,  *args, **kwargs):
         return render(request, 'cart.html')
+
+
+class AddToCartView(View):
+    def get(self, request, slug,  *args, **kwargs):
+        product = Product.objects.filter(slug=slug)
+        context = {
+            'product': product,
+        }
+        return render(request, 'add_to_cart.html', context)
 
 
 class CheckoutView(View):
@@ -33,14 +109,15 @@ class CheckoutView(View):
         return render(request, 'checkout.html')
 
 
-class AboutView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'about.html')
-
-
 class BuynowView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'buynow.html')
+    def get(self, request, slug, *args, **kwargs):
+        product = Product.objects.get(slug=slug)
+        category = Category.objects.all()
+        context = {
+            'product': product,
+            'category': category
+        }
+        return render(request, 'buynow.html', context)
 
 
 class SigninView(View):
@@ -96,11 +173,14 @@ class SignInView(View):
         if user is not None:
             login(request, user)
             return redirect('/')
+        messages.warning(request, "Username or Password is incorrect")
         return render(request, 'signin.html')
 
 
 class SignUpView(View):
     def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('/')
         return render(request, 'signup.html')
 
     def post(self, request, *args, **kwargs):
@@ -111,28 +191,45 @@ class SignUpView(View):
         password = request.POST.get('password')
         con_password = request.POST.get('conpassword')
         # Todo Regex validation
-        email_regex = r'/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/'
+        email_regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
         pass_regex = r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$'
 
         if username == '':
             messages.warning(request, "Username is required")
+            return redirect('signup')
+
         elif last_name == '':
             messages.warning(request, "Last name is required")
+            return redirect('signup')
+
         elif first_name == '':
             messages.warning(request, "Firs name is required")
-        elif re.fullmatch(email_regex, email):
+            return redirect('signup')
+
+        if not (re.fullmatch(email_regex, email)):
             messages.warning(request, "Please enter a valid email")
+            return redirect('signup')
+
         elif email == '':
             messages.warning(request, "Email is required")
-        elif re.fullmatch(pass_regex, password):
+            return redirect('signup')
+
+        if not re.search(pass_regex, password):
             messages.warning(request, "Minimum eight characters, at least one letter, one number and one special "
                                       "character!")
+            return redirect('signup')
+
         elif password == '':
             messages.warning(request, "Password is required")
+            return redirect('signup')
+
         elif con_password == '':
             messages.warning(request, "Confirm Password is required")
+            return redirect('signup')
+
         elif password != con_password:
             messages.warning(request, "Password must be same")
+            return redirect('signup')
 
         create_users = User.objects.create_user(username, email, password)
         create_users.first_name = first_name
